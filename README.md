@@ -4,8 +4,9 @@
 
 Se implementan dos programas en Python usando mpi4py:
 
-- **Parte A:** Cálculo de mínimo, máximo y promedio global de un arreglo usando MPI_Bcast, MPI_Scatter y MPI_Reduce.
+- **Parte A:** Cálculo de mínimo, máximo y promedio global de un arreglo usando MPI_Bcast, MPI_Scatter, MPI_Reduce y MPI_Gather.
 - **Parte B:** Medición de latencia punto a punto entre dos procesos usando MPI_Send y MPI_Recv.
+- **Parte Opcional:** Medición de latencia punto a punto entre dos procesos usando MPI_Send y MPI_Recv usando distintos tamanos de mensajes.
 
 ---
 
