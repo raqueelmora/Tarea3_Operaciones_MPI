@@ -1,5 +1,5 @@
 # Ignorar entorno virtual
-mpi_venv/
+mpi_env/
 
 # Archivos compilados de Python
 __pycache__/
