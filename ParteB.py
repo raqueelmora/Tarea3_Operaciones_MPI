@@ -23,7 +23,7 @@ if rank == 0:
         comm.Send(mensaje, dest=1, tag=0)     # MPI_Send: proceso 0 envia 1 byte a proceso 0
         comm.Recv(mensaje, source=1, tag=0)   # MPI_Recv: proceso 0 recibe respuesta de proceso 1
 
-    end_time = MPI.Wtime()  # tiempo final
+    end_time = MPI.Wtime()  # MPI_Wtime: medicion del tiempo final
     total_time = end_time - start_time
 
     # Calcular latencias (después de completar las N transmisiones de ida y vuelta )
