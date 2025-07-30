@@ -6,7 +6,7 @@ Se implementan dos programas en Python usando mpi4py:
 
 - **Parte A:** Cálculo de mínimo, máximo y promedio global de un arreglo usando MPI_Bcast, MPI_Scatter, MPI_Reduce y MPI_Gather.
 - **Parte B:** Medición de latencia punto a punto entre dos procesos usando MPI_Send y MPI_Recv.
-- **Parte Opcional:** Medición de latencia punto a punto entre dos procesos usando MPI_Send y MPI_Recv usando distintos tamanos de mensajes.
+- **Parte Opcional:** Medición de latencia punto a punto entre dos procesos usando MPI_Send y MPI_Recv usando distintos tamaños de mensajes.
 
 ---
 
@@ -22,6 +22,7 @@ Se implementan dos programas en Python usando mpi4py:
 
 - `ParteA.py`: operaciones colectivas
 - `ParteB.py`: medición de latencia
+- `ParteOpcionak.py`: medición de latencia con diferentes tamaños
 
 ---
 
@@ -45,7 +46,17 @@ Ejecutar con 2 procesos:
 
 (Desde la terminal en el directorio con el archivo)
  
-  mpirun -np 2 python latencia_mpi.py
+  mpirun -np 2 python Parte_B.py
+
+### Parte Opcional - Medición de latencias con diferentes tamaños
+
+Ejecutar con 2 procesos (el programa correra por los distintos tamaños del mensaje):
+
+(Desde la terminal en el directorio con el archivo)
+ 
+  mpirun -np 2 python Parte_Opcional.py
+
+Se crearan archivos para visualizar latencia y bandwidth. 
 
 ## Resultados y Análisis
 
@@ -71,6 +82,35 @@ A partir de estos resultados, se puede ver una distribución equitativa de los n
 
 Es importante notar que el rango de los números es de 0-100, y dado de que cada proceso recibió 250k números, es casi imposible que 0 y 100 no salieran de mínimo y máximo. Con menos muchos números aleatorios y un rango más amplio (ej: 0-10000), quizá cada proceso muestre un mínimo y máximo diferente. En este caso, todos los procesos definitivamente recibieron el número 0 y el número 100 probablemente varias veces. Además dado que el rango es tan pequeño, era de esperar que el promedio sería cerca a 50. Sería muy díficil que con un arreglo de números aleatorios, salgan muchos números sobre o debajo de 50 como para jalar el promedio lejos del 50. Esto se ve en los resultados globales y también en cada proceso, indicando que la repartición de los números sí fue equitativa. 
 
+### Parte B - Medición de latencias
+
+Mensaje de 1 byte transmitido 10000 veces.
+Latencia promedio por mensaje (ida y vuelta): 1.43 microsegundos
+Latencia estimada unidireccional: 0.72 microsegundos
+
+En este caso, se transmitió un mensaje de 1 byte 10k veces utilizando las operaciones de MPI. El resultado fue una latencia promedio de 1.43 microsegundos por mensaje (ida y vuelta) y una latencia unidireccional de aproximadamente 0.72 microsegundos. Estas métricas son veloces y muestran estabilidad en transmisión. En términos de computación paralela y distribuida, las operaciones Punto a Punto (Send y Recv) ayudaron a medir el tiempo que tardan las transmiciones con gran precisión, lo cual es muy útil a gran escala. Las operaciones que se usaron en este caso son diferentes a las colectivas ya que muestran más especificidad y control sobre la comunicación entre procesos. Depende del caso que tipo de operaciones usar. 
+
+
+### Parte Opcional - Medición de latencias con diferentes tamaños
+
+μs: microsegundos
+
+Tamaño mensaje: 1 bytes
+Latencia promedio ida y vuelta: 1.77 μs
+Latencia estimada unidireccional: 0.89 μs
+Ancho de banda estimado: 1.08 MB/s
+
+Tamaño mensaje: 1024 bytes
+Latencia promedio ida y vuelta: 2.40 μs
+Latencia estimada unidireccional: 1.20 μs
+Ancho de banda estimado: 813.02 MB/s
+
+Tamaño mensaje: 1048576 bytes
+Latencia promedio ida y vuelta: 134.89 μs
+Latencia estimada unidireccional: 67.45 μs
+Ancho de banda estimado: 14826.61 MB/s
+
+Por último, este análisis muestra cómo se comportan las operaciones punto a punto al aumentar el tamaño de los mensajes. Los resultados indican que la relación entre el ancho de banda y la latencia depende del tamaño del mensaje: en mensajes pequeños, la latencia es más alta y limita la comunicación, mientras que en mensajes grandes, el ancho de banda es el factor principal que afecta el rendimiento, mostrando que MPI maneja bien ambas situaciones según el tipo de transferencia.
 
 
   
