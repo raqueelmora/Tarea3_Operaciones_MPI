@@ -65,3 +65,4 @@ if rank == 0:
     print(f"Max global: {max_global:.2f}")
     print(f"Promedio global: {avg_global:.2f}")
 
+
