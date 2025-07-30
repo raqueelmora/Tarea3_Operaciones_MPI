@@ -1,0 +1,17 @@
+# Ignorar entorno virtual
+mpi_venv/
+
+# Archivos compilados de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Archivos de configuración de IDEs comunes
+.vscode/
+.idea/
+
+# Otros archivos temporales
+*.swp
+*.swo
+.DS_Store
